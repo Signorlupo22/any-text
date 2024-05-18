@@ -1,7 +1,7 @@
 const fs = require('fs');
 const StreamZip = require('node-stream-zip');
 const XLSX = require('xlsx');
-const pdf = require('pdf-parse');
+const pdf = require('pdf-parse/lib/pdf-parse');
 let WordExtractor = require('word-extractor');
 
 // extract text from office books as doc and docx
