@@ -50,6 +50,13 @@ describe('file reader checks', () => {
     expect(await fileReader.getText({filePath: filePath})).to.contains('Doe');
   });
 
+  it('check pptx file content', async () => {
+    const filePath = `${process.cwd()}/test/files/dummy.pptx`;
+    expect((await fileReader.getText({filePath})).toString()).to.contains(
+      'Sample'
+    );
+  });
+
   it('Throw error on unknown extension', async () => {
     try {
       const filePath = `${process.cwd()}/test/files/dummy.html`;
@@ -136,6 +143,16 @@ describe('file reader checks', () => {
     );
   });
 
+  it('pptx whit buffer reader', async () => {
+    const filePath = `${process.cwd()}/test/files/dummy.pptx`;
+    const fileData = fs.readFileSync(filePath);
+    const fileExtension = '.pptx';
+    const result = await fileReader.getText({ fileData, fileExtension });
+
+    expect((await fileReader.getText({ fileData, fileExtension })).toString()).to.contains(
+      'Sample'
+    );
+  });
   it('Throw error on unknown extension with buffer reader', async () => {
     try {
       const filePath = `${process.cwd()}/test/files/dummy.html`;
