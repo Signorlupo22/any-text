@@ -1,5 +1,5 @@
 let fileReader = require('../..');
-
+const fs = require('fs');
 const chai = require('chai');
 const expect = chai.expect;
 chai.use(require('chai-as-promised'));
@@ -58,4 +58,104 @@ describe('file reader checks', () => {
       expect(String(err)).to.contains('Error: unknown extension found!');
     }
   });
+
+  it('xls whit buffer reader', async () => {
+    const filePath = `${process.cwd()}/test/files/dummy.xls`;
+    const fileData = fs.readFileSync(filePath);
+    const fileExtension = '.xls';
+    const result = await fileReader.getText({ fileData, fileExtension });
+
+    expect(await fileReader.getText({ fileData, fileExtension })).to.contains(
+      'Kathleen'
+    );
+  });
+
+  it('xlsx whit buffer reader', async () => {
+    const filePath = `${process.cwd()}/test/files/dummy.xlsx`;
+    const fileData = fs.readFileSync(filePath);
+    const fileExtension = '.xlsx';
+    const result = await fileReader.getText({ fileData, fileExtension });
+
+    expect(await fileReader.getText({ fileData, fileExtension })).to.contains(
+      'Kathleen'
+    );
+  });
+
+  it('pdf whit buffer reader', async () => {
+    const filePath = `${process.cwd()}/test/files/dummy.pdf`;
+    const fileData = fs.readFileSync(filePath);
+    const fileExtension = '.pdf';
+    const result = await fileReader.getText({ fileData, fileExtension });
+
+    expect(await fileReader.getText({ fileData, fileExtension })).to.contains(
+      'Dummy'
+    );
+  });
+
+  it('docx whit buffer reader', async () => {
+    const filePath = `${process.cwd()}/test/files/dummy.docx`;
+    const fileData = fs.readFileSync(filePath);
+    const fileExtension = '.docx';
+    const result = await fileReader.getText({ fileData, fileExtension });
+
+    expect(await fileReader.getText({ fileData, fileExtension })).to.contains(
+      'Lorem ipsum'
+    );
+  });
+
+  it('doc whit buffer reader', async () => {
+    const filePath = `${process.cwd()}/test/files/dummy.doc`;
+    const fileData = fs.readFileSync(filePath);
+    const fileExtension = '.doc';
+    const result = await fileReader.getText({ fileData, fileExtension });
+
+    expect(await fileReader.getText({ fileData, fileExtension })).to.contains(
+      'Welcome'
+    );
+  });
+
+  it('csv whit buffer reader', async () => {
+    const filePath = `${process.cwd()}/test/files/dummy.csv`;
+    const fileData = fs.readFileSync(filePath);
+    const fileExtension = '.csv';
+    const result = await fileReader.getText({ fileData, fileExtension });
+
+    expect(await fileReader.getText({ fileData, fileExtension })).to.contains(
+      'First Name'
+    );
+  });
+
+  it('json whit buffer reader', async () => {
+    const filePath = `${process.cwd()}/test/files/dummy.json`;
+    const fileData = fs.readFileSync(filePath);
+    const fileExtension = '.json';
+    const result = await fileReader.getText({ fileData, fileExtension });
+
+    expect(await fileReader.getText({ fileData, fileExtension })).to.contains(
+      'Doe'
+    );
+  });
+
+  it('Throw error on unknown extension with buffer reader', async () => {
+    try {
+      const filePath = `${process.cwd()}/test/files/dummy.html`;
+      const fileData = fs.readFileSync(filePath);
+      const fileExtension = '.html';
+      await fileReader.getText({ fileData, fileExtension });
+    } catch (err) {
+      expect(String(err)).to.contains('Error: unknown extension found!');
+    }
+  });
+
+  it('Throw error on unknown extension with buffer reader', async () => {
+    try {
+      const filePath = `${process.cwd()}/test/files/dummy.html`;
+      const fileData = fs.readFileSync(filePath);
+      const fileExtension = '.html';
+      await fileReader.getText({ fileData, fileExtension });
+    } catch (err) {
+      expect(String(err)).to.contains('Error: unknown extension found!');
+    }
+  });
+
 });

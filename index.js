@@ -89,7 +89,7 @@ exports.getText = async ({ filePath, fileData, fileExtension }) => {
     case '.docx':
     case '.doc':
       var extractor = new WordExtractor();
-      var extracted = await extractor.extract(filePath);
+      var extracted = await extractor.extract(data);
       fileContent = extracted.getBody();
       break;
 
