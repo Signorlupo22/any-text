@@ -60,12 +60,25 @@ getFileExtension = (filename) => {
 };
 
 // read the file and extract text
-exports.getText = async (filePath) => {
+exports.getText = async ({ filePath, fileData, fileExtension }) => {
   let fileContent = '';
 
-  let data = fs.readFileSync(filePath);
-  const fileExtension = getFileExtension(filePath);
+  if (filePath) {
+    // Legge il file dal percorso specificato
+    fileData = fs.readFileSync(filePath);
+    fileExtension = getFileExtension(filePath);
+  } else if (!fileData || !fileExtension) {
+    throw new Error('you have to provide either file path or file data and extension!');
+  }
 
+  if(!fileExtension){
+    fileExtension = getFileExtension(filePath);
+  }
+  if(!fileData){
+    var data = fs.readFileSync(filePath);
+  }else{
+    var data = fileData;
+  }
   switch (fileExtension) {
     // read pdf
     case '.pdf':
