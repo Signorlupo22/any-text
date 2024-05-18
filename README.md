@@ -53,7 +53,7 @@ console.log(text);
 var reader = require('any-text');
 
 const buffer = fs.readFileSync(`path-to-file`);
-const text = await reader.getText({ fileData: buffer, fileExtension: 'pdf' });
+const text = await reader.getText({ fileData: buffer, fileExtension: '.pdf' });
 
 console.log(text);
 
@@ -70,11 +70,18 @@ const expect = chai.expect;
 
 describe('file reader checks', () => {
   it('check docx file content', async () => {
-    expect(await reader.getText(`${process.cwd()}/test/files/dummy.docx`)).to.contains(
+    expect(await reader.getText({ filePath: `${process.cwd()}/test/files/dummy.docx` })).to.contains(
       'Lorem ipsum'
     );
   });
+  
+  it('check pptx file content', async () => {
+    expect(await reader.getText({ filePath: `${process.cwd()}/test/files/sample.pptx` })).to.contains(
+      'Sample text'
+    );
+  });
 });
+
 ```
 
 ### Tell me your issues
